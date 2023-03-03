@@ -1,15 +1,33 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function TicketOnline() {
+export default function TicketOnline({ display, price }) {
+  const [displayFinish, setDisplayFinish] = useState('none');
+  useEffect(() => {
+    if(display === 'none') {
+      setDisplayFinish('');
+    }else{
+      setDisplayFinish('none');
+    }
+  });
+  if(price === 0) {
+    return <>
+    </>;
+  }
   return (
-    <>
-      <StyledText>Fechado! O total ficou em R$ 100. Agora é só confirmar:</StyledText>
+    <FinishContainer displayFinish = { displayFinish }>
+      <StyledText>Fechado! O total ficou em R$ {price}. Agora é só confirmar:</StyledText>
       <StyledButton>
         <h1>RESERVAR INGRESSO</h1>
       </StyledButton>
-    </>
+    </FinishContainer>
   );
 };
+
+const FinishContainer = styled.div`
+  display: ${(prop) => prop.displayFinish};
+`;
 
 const StyledText = styled.h1`
   margin-top: 50px !important;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-export default function PersonalInformationAccommodation() {
+export default function PersonalInformationAccommodation({ display }) {
   const [accommodation, setAccommodation] = useState();
   
   function withHotel() {
@@ -15,10 +15,10 @@ export default function PersonalInformationAccommodation() {
   };
   
   return (
-    <>
+    <HotelContainer  display = { display }>
       <StyledText> Ótimo! Agora escolha sua modalidade de hospedagem</StyledText>
       <StyledContainer>
-        <StyledBox onClick={withOutHotel}>
+        <StyledBox onClick={withOutHotel} accommodation = { accommodation }>
           <h1>Sem hotel</h1>
           <h2> + R$ 0</h2>
         </StyledBox>
@@ -27,15 +27,20 @@ export default function PersonalInformationAccommodation() {
           <h2>+ R$ 350</h2>
         </StyledBox>
       </StyledContainer>
-    </>
+    </HotelContainer>
   );
 }
+
+const HotelContainer = styled.div`
+display: ${(prop) => prop.display};
+`;
 
 const StyledText = styled.h1`
   margin-top: 50px !important;
   color: #8E8E8E;
   font-size: 20px;
 `;
+
 const StyledContainer = styled.div`
  width: 310px;
  display: flex;
