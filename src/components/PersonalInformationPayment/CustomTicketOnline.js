@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import useEnrollment from '../../hooks/api/useEnrollment';
+import useToken from '../../hooks/useToken';
+import { saveTicket } from '../../services/ticketApi';
+import { toast } from 'react-toastify';
 
 export default function TicketOnline({ display, price }) {
   const [displayFinish, setDisplayFinish] = useState('none');
+  const { enrollment } = useEnrollment();
+  const token = useToken();
   useEffect(() => {
     if(display === 'none') {
       setDisplayFinish('');
@@ -15,10 +21,25 @@ export default function TicketOnline({ display, price }) {
     return <>
     </>;
   }
+  async function createOnlineTicket() {
+    const body ={
+      enrollmentId: enrollment.id,
+      ticketTypeId: 3,
+      status: 'RESERVED'
+    };
+    try {
+      await saveTicket(body, token);
+      toast('Informações salvas com sucesso!');
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+      toast('Não foi possível salvar suas informações!');
+    }
+  }
   return (
     <FinishContainer displayFinish = { displayFinish }>
       <StyledText>Fechado! O total ficou em R$ {price}. Agora é só confirmar:</StyledText>
-      <StyledButton>
+      <StyledButton onClick={createOnlineTicket}>
         <h1>RESERVAR INGRESSO</h1>
       </StyledButton>
     </FinishContainer>
