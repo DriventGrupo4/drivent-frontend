@@ -1,7 +1,18 @@
-import React from 'react';
-import 'react-credit-cards-2/es/styles-compiled.css';
-import CrediCardInformation from '../../../components/CreditCardInformation';
+import { useState } from 'react';
+import PersonalInformationAccommodation from '../../../components/PersonalInformationPayment/Custom.accommodation';
+import PersonalInformationTickets from '../../../components/PersonalInformationPayment/CustomTicket';
+import TicketOnline from '../../../components/PersonalInformationPayment/CustomTicketOnline';
+import CreditCardInformation from '../../../components/CreditCardInformation';
+export default function Payment({ ticketId }) {
+  const [isRemote, setIsRemote] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [display, setDisplay] = useState('none');
 
-export default function Payment() {
-  return <CrediCardInformation />;
+  return (
+    <>
+      <PersonalInformationTickets setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
+      <PersonalInformationAccommodation display={display} />
+      <TicketOnline display={display} price={price} />
+    </>
+  );
 }
