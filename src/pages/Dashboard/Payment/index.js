@@ -10,7 +10,6 @@ export default function Payment({ ticketId }) {
   const [price, setPrice] = useState(0);
   const [display, setDisplay] = useState('none');
   const [finalTicket, setFinalTicket] = useState();
-  console.log(finalTicket);
 
   return (
     <>
