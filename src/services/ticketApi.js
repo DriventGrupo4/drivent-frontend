@@ -1,13 +1,20 @@
-import useToken from '../hooks/useToken';
 import api from './api';
 
-export async function getTicketType() {
-  const token = useToken();
-  const response = await api.get('/tickets/types', {
+export async function saveTicket(body, token) {
+  const response = await api.post('/tickets', body, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  const tickets = response.data;
-  return tickets;
-};
+  
+  return response.data;
+}
+export async function getTicket(token) {
+  const response = await api.get('/tickets', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  
+  return response.data;
+}
