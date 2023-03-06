@@ -73,7 +73,7 @@ export default function CreditCardInformation({ ticketId }) {
           <ContainerChooseTicket>
             <h3>Modalidade</h3>
             <h4>Preço</h4>
-          </ContainerChooseTicket>
+          </ContainerChooseTicket>  
           <Paragraph>Pagamento</Paragraph>
           <ContainerCheck>
             <BsFillCheckCircleFill style={{ color: '#59C332', fontSize: '44px' }} />
@@ -205,7 +205,7 @@ const InputPayment = styled.div`
     position: relative;
     top: 60px;
     left: -310px;
-    widdth: 240px;
+    width: 240px;
     height: 30px;
     border: 2px solid #e5e5e5;
     border-radius: 7px;
@@ -237,11 +237,11 @@ const ValidData = styled.div`
 const ContainerCheck = styled.div`
   margin-top: 20px;
   display: flex;
-  align-itens: center;
+  align-items: center;
   div {
     margin-left: 18px;
     p:nth-child(1) {
-      font-height: 700;
+      font-weight: 700;
       padding-bottom: 5px;
     }
   }

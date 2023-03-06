@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import useEnrollment from '../../hooks/api/useEnrollment';
 import TicketContainer from './TicketContainer';
 
-export default function PersonalInformationTickets({ setIsRemote, setPrice, setDisplay }) {
+export default function PersonalInformationTickets({ setAccommodation, setIsRemote, setPrice, setDisplay }) {
   const { enrollment } = useEnrollment();
   if (!enrollment) {
     return (
@@ -19,7 +19,7 @@ export default function PersonalInformationTickets({ setIsRemote, setPrice, setD
   return <>
     <Title>Ingressos e pagamentos</Title>
     <Subtile>Primeiro, escolha sua modalidade de ingresso</Subtile>
-    <TicketContainer setIsRemote = { setIsRemote } setPrice = { setPrice } setDisplay = { setDisplay } />
+    <TicketContainer setAccommodation={setAccommodation} setIsRemote = { setIsRemote } setPrice = { setPrice } setDisplay = { setDisplay } />
   </>;
 }
 
