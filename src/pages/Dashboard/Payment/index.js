@@ -11,10 +11,10 @@ export default function Payment({ ticketId }) {
   return (
     <>
 
-      <PersonalInformationTickets setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
+      {/* <PersonalInformationTickets setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
       <PersonalInformationAccommodation display={display} />
-      <TicketOnline display={display} price={price} />
-      {/* <CreditCardInformation/> */}
+      <TicketOnline display={display} price={price} /> */}
+      <CreditCardInformation/>
     </>
   );
 }
