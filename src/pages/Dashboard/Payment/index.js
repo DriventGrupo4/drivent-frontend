@@ -15,6 +15,7 @@ export default function Payment({ ticketId }) {
       <PersonalInformationTickets setAccommodation={setAccommodation} setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
       <PersonalInformationAccommodation accommodation={accommodation} setAccommodation={setAccommodation} setPrice={setPrice} setDisplayFinish={setDisplayFinish} display={display} />
       <TicketOnline accommodation={accommodation} displayFinish={displayFinish} setDisplayFinish={setDisplayFinish} display={display} price={price} />
+      {/* <CreditCardInformation/> */}
     </>
   );
 }
