@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import styled from 'styled-components';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import InputMask from 'react-input-mask';
+import { getTicket } from '../services/ticketApi';
 
 export default function CreditCardInformation({ ticketId }) {
   const { userData } = useContext(UserContext);
@@ -21,6 +22,17 @@ export default function CreditCardInformation({ ticketId }) {
   });
 
   const [focus, setFocus] = useState('');
+  const [ticket, setTicket] = useState('');
+  const [price, setPrice] = useState('');
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const response = await getTicket(userData.token);
+      setTicket(response);
+      setPrice(response.TicketType.price);
+    };
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,8 +102,8 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>Modalidade</h3>
-            <h4>Preço</h4>
+            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel': ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel': 'Online'}</h3>
+            <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
           <PaymentSection>
