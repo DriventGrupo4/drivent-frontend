@@ -21,7 +21,6 @@ export default function CreditCardInformation({ ticketId }) {
   });
 
   const [focus, setFocus] = useState('');
-  console.log(cardData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +45,7 @@ export default function CreditCardInformation({ ticketId }) {
     const request = axios.post(
       URL,
       {
-        ticketId: 6,
+        ticketId: 4,
         cardData: {
           issuer: cardData.issuer,
           number: +cardData.number,
@@ -69,6 +68,12 @@ export default function CreditCardInformation({ ticketId }) {
     <>
       {success ? (
         <>
+          <Title>Ingresso e pagamento</Title>
+          <Subtitle>Ingresso escolhido</Subtitle>
+          <ContainerChooseTicket>
+            <h3>Modalidade</h3>
+            <h4>Preço</h4>
+          </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
           <ContainerCheck>
             <BsFillCheckCircleFill style={{ color: '#59C332', fontSize: '44px' }} />
@@ -82,6 +87,13 @@ export default function CreditCardInformation({ ticketId }) {
         </>
       ) : (
         <div id="PaymentForm">
+          <Title>Ingresso e pagamento</Title>
+          <Subtitle>Ingresso escolhido</Subtitle>
+          <ContainerChooseTicket>
+            <h3>Modalidade</h3>
+            <h4>Preço</h4>
+          </ContainerChooseTicket>
+          <Paragraph>Pagamento</Paragraph>
           <PaymentSection>
             <Cards
               number={cardData.number}
@@ -92,17 +104,17 @@ export default function CreditCardInformation({ ticketId }) {
               focused={focus}
             />
             <InputPayment>
-              <form>
+              <form onSubmit={postDataCreditCard}>
                 <input
                   type="text"
                   name="number"
                   placeholder="Card Number"
                   size={16}
                   maxLength={16}
-                  required
                   value={cardData.number}
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
+                  required
                 />
                 <input
                   type="text"
@@ -110,10 +122,10 @@ export default function CreditCardInformation({ ticketId }) {
                   placeholder="Name"
                   maxLength={17}
                   minLength={7}
-                  required
                   value={cardData.name}
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
+                  required
                 />
                 <ValidData>
                   <input
@@ -121,13 +133,12 @@ export default function CreditCardInformation({ ticketId }) {
                     name="expirationDate"
                     placeholder="Valid Thru"
                     mask="MM/YY"
-                    pattern="\d\d/\d\d"
                     size={4}
                     maxLength={4}
-                    required
                     value={cardData.expirationDate}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    required
                   />
                   <input
                     type="text"
@@ -135,14 +146,14 @@ export default function CreditCardInformation({ ticketId }) {
                     placeholder="CVC"
                     size={3}
                     maxLength={3}
-                    required
                     value={cardData.cvc}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    required
                   />
                 </ValidData>
 
-                <button onClick={postDataCreditCard} type="submit">
+                <button type="submit">
                   <h3>
                     <strong>FINALIZAR PAGAMENTO</strong>
                   </h3>
@@ -162,8 +173,8 @@ const PaymentSection = styled.section`
   justify-content: center;
   align-items: center;
   height: 225px;
-  margin-left: 50px;
   width: 45%;
+  margin-left: -75px;
 `;
 const InputPayment = styled.div`
   display: flex;
@@ -171,7 +182,7 @@ const InputPayment = styled.div`
   height: 225px;
   width: 50%;
   padding-top: 45px;
-  padding-left: 20px;
+  margin-left: -55px;
   input {
     text-indent: 10px;
     height: 47px;
@@ -179,48 +190,47 @@ const InputPayment = styled.div`
     border-width: 2px;
     border-style: solid;
     border-color: #e5e5e5;
-    margin: 10px;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   input:nth-child(1) {
     width: 335px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   }
   input:nth-child(2) {
     width: 335px;
-    margin-bottom: 15px;
+    margin-bottom:18px;
   }
   button {
     position: relative;
     top: 60px;
     left: -310px;
-    widdth: 180px;
-    height: 46px;
+    widdth: 240px;
+    height: 30px;
     border: 2px solid #e5e5e5;
     border-radius: 7px;
     box-shadow: 3px 3px 4px 4px lightgray;
-    cursor:pointer;
-    :hover{
-      opacity: 0.5; 
-      transition:0.4s;
-    };
+    cursor: pointer;
+    :hover {
+      opacity: 0.5;
+      transition: 0.4s;
+    }
   }
 `;
 const ValidData = styled.div`
   width: 356px;
   height: 46px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin-top:-12px;
   input {
     height: 46px;
   }
   input:nth-child(1) {
-    width: 260px;
+    width: 248px;
+    margin-right:12px;
   }
   input:nth-child(2) {
-    width: 96px;
+    width: 74px;
   }
 `;
 
@@ -240,5 +250,61 @@ const Paragraph = styled.h1`
   font-weight: 500;
   color: gray;
   font-size: 20px;
-  cursor:pointer;
+  cursor: pointer;
+`;
+const Title = styled.h1`
+  width: 600px;
+  height: 40px;
+  left: 341px;
+  top: 206px;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 40px;
+  color: #000000;
+`;
+const Subtitle = styled.h2`
+  width: 600px;
+  height: 23px;
+  left: 341px;
+  margin-top: 37px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #8e8e8e;
+`;
+const ContainerChooseTicket = styled.section`
+  background-color: #ffeed2;
+  width: 290px;
+  height: 90px;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  border-radius: 9px;
+  margin: 10px 0 30px 0;
+  h3 {
+    width: 75px;
+    height: 19px;
+    left: 376px;
+    top: 376px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #454545;
+  }
+  h4 {
+    width: 44px;
+    height: 16px;
+    left: 392px;
+    margin-top: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #898989;
+  }
 `;
