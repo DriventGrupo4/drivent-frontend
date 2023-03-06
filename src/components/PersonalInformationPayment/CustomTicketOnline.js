@@ -6,7 +6,7 @@ import useToken from '../../hooks/useToken';
 import { saveTicket } from '../../services/ticketApi';
 import { toast } from 'react-toastify';
 
-export default function TicketOnline({ display, price, displayFinish, setDisplayFinish, accommodation }) {
+export default function TicketOnline({ setFinalTicket, display, price, displayFinish, setDisplayFinish, accommodation }) {
   const { enrollment } = useEnrollment();
   const token = useToken();
   useEffect(() => {
@@ -38,6 +38,7 @@ export default function TicketOnline({ display, price, displayFinish, setDisplay
     };
     try {
       await saveTicket(body, token);
+      setFinalTicket(ticketTypeNumber);
       toast('Informações salvas com sucesso!');
     } catch (err) {
       // eslint-disable-next-line no-console
