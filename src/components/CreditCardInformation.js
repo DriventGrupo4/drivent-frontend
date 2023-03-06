@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { getTicket } from '../services/ticketApi';
 
-export default function CreditCardInformation({ ticketId }) {
+export default function CreditCardInformation() {
   const { userData } = useContext(UserContext);
   const [success, setSuccess] = useState(false);
   const [cardData, setCardData] = useState({
@@ -23,11 +23,13 @@ export default function CreditCardInformation({ ticketId }) {
   const [focus, setFocus] = useState('');
   const [ticket, setTicket] = useState('');
   const [price, setPrice] = useState('');
+  const [ticketId, setTicketId] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
       const response = await getTicket(userData.token);
       setTicket(response);
+      setTicketId(response.id);
       setPrice(response.TicketType.price);
     };
     fetchData();
@@ -83,9 +85,9 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>Modalidade</h3>
-            <h4>Preço</h4>
-          </ContainerChooseTicket>  
+            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
+            <h4>R${price}</h4>
+          </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
           <ContainerCheck>
             <BsFillCheckCircleFill style={{ color: '#59C332', fontSize: '44px' }} />
@@ -102,7 +104,7 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel': ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel': 'Online'}</h3>
+            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
             <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
