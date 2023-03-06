@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 
 export default function PersonalInformationAccommodation({ accommodation, display, setDisplayFinish, setPrice, setAccommodation }) {
   function withHotelOrNot(bool) {

@@ -3,6 +3,7 @@ import PersonalInformationAccommodation from '../../../components/PersonalInform
 import PersonalInformationTickets from '../../../components/PersonalInformationPayment/CustomTicket';
 import TicketOnline from '../../../components/PersonalInformationPayment/CustomTicketOnline';
 import CreditCardInformation from '../../../components/CreditCardInformation';
+
 export default function Payment({ ticketId }) {
   const [isRemote, setIsRemote] = useState(false);
   const [accommodation, setAccommodation] = useState();

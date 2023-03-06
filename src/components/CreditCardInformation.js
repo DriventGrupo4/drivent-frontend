@@ -7,7 +7,6 @@ import UserContext from '../contexts/UserContext';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-import InputMask from 'react-input-mask';
 import { getTicket } from '../services/ticketApi';
 
 export default function CreditCardInformation({ ticketId }) {
@@ -57,7 +56,7 @@ export default function CreditCardInformation({ ticketId }) {
     const request = axios.post(
       URL,
       {
-        ticketId: 4,
+        ticketId: ticketId,
         cardData: {
           issuer: cardData.issuer,
           number: +cardData.number,
@@ -72,6 +71,7 @@ export default function CreditCardInformation({ ticketId }) {
       setSuccess(true);
     });
     request.catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
     });
   }
@@ -186,7 +186,7 @@ const PaymentSection = styled.section`
   align-items: center;
   height: 225px;
   width: 45%;
-  margin-left: -75px;
+  margin-left: 30px;
 `;
 const InputPayment = styled.div`
   display: flex;
@@ -194,7 +194,7 @@ const InputPayment = styled.div`
   height: 225px;
   width: 50%;
   padding-top: 45px;
-  margin-left: -55px;
+  margin-left: 20px;
   input {
     text-indent: 10px;
     height: 47px;
