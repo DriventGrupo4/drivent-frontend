@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import styled from 'styled-components';
@@ -7,9 +7,9 @@ import UserContext from '../contexts/UserContext';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-import InputMask from 'react-input-mask';
+import { getTicket } from '../services/ticketApi';
 
-export default function CreditCardInformation({ ticketId }) {
+export default function CreditCardInformation() {
   const { userData } = useContext(UserContext);
   const [success, setSuccess] = useState(false);
   const [cardData, setCardData] = useState({
@@ -21,6 +21,19 @@ export default function CreditCardInformation({ ticketId }) {
   });
 
   const [focus, setFocus] = useState('');
+  const [ticket, setTicket] = useState('');
+  const [price, setPrice] = useState('');
+  const [ticketId, setTicketId] = useState('');
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const response = await getTicket(userData.token);
+      setTicket(response);
+      setTicketId(response.id);
+      setPrice(response.TicketType.price);
+    };
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +58,7 @@ export default function CreditCardInformation({ ticketId }) {
     const request = axios.post(
       URL,
       {
-        ticketId: 4,
+        ticketId: ticketId,
         cardData: {
           issuer: cardData.issuer,
           number: +cardData.number,
@@ -60,6 +73,7 @@ export default function CreditCardInformation({ ticketId }) {
       setSuccess(true);
     });
     request.catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
     });
   }
@@ -71,8 +85,8 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>Modalidade</h3>
-            <h4>Preço</h4>
+            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
+            <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
           <ContainerCheck>
@@ -90,8 +104,8 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>Modalidade</h3>
-            <h4>Preço</h4>
+            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
+            <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
           <PaymentSection>
@@ -174,7 +188,7 @@ const PaymentSection = styled.section`
   align-items: center;
   height: 225px;
   width: 45%;
-  margin-left: -75px;
+  margin-left: 30px;
 `;
 const InputPayment = styled.div`
   display: flex;
@@ -182,7 +196,7 @@ const InputPayment = styled.div`
   height: 225px;
   width: 50%;
   padding-top: 45px;
-  margin-left: -55px;
+  margin-left: 20px;
   input {
     text-indent: 10px;
     height: 47px;
@@ -205,7 +219,7 @@ const InputPayment = styled.div`
     position: relative;
     top: 60px;
     left: -310px;
-    widdth: 240px;
+    width: 240px;
     height: 30px;
     border: 2px solid #e5e5e5;
     border-radius: 7px;
@@ -237,11 +251,11 @@ const ValidData = styled.div`
 const ContainerCheck = styled.div`
   margin-top: 20px;
   display: flex;
-  align-itens: center;
+  align-items: center;
   div {
     margin-left: 18px;
     p:nth-child(1) {
-      font-height: 700;
+      font-weight: 700;
       padding-bottom: 5px;
     }
   }
@@ -286,7 +300,6 @@ const ContainerChooseTicket = styled.section`
   border-radius: 9px;
   margin: 10px 0 30px 0;
   h3 {
-    width: 75px;
     height: 19px;
     left: 376px;
     top: 376px;
