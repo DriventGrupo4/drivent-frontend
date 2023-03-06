@@ -7,14 +7,17 @@ export default function Payment({ ticketId }) {
   const [isRemote, setIsRemote] = useState(false);
   const [price, setPrice] = useState(0);
   const [display, setDisplay] = useState('none');
+  const [isTicketReserved, setIsTicketReserved] = useState(false);
 
   return (
     <>
 
-      <PersonalInformationTickets setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
-      <PersonalInformationAccommodation display={display} />
-      <TicketOnline display={display} price={price} />
-      {/* <CreditCardInformation/> */}
+      {isTicketReserved ? '' : <>
+        <PersonalInformationTickets setIsRemote={setIsRemote} setPrice={setPrice} setDisplay={setDisplay} />
+        <PersonalInformationAccommodation display={display} />
+        <TicketOnline display={display} price={price} setIsTicketReserved={setIsTicketReserved} />
+      </>}
+      {isTicketReserved ? <CreditCardInformation/> : ''}
     </>
   );
 }

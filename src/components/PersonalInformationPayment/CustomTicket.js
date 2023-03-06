@@ -17,7 +17,7 @@ export default function PersonalInformationTickets({ setIsRemote, setPrice, setD
   }
 
   return <>
-    <Title>Ingressos e pagamentos</Title>
+    <Title>Ingresso e pagamentos</Title>
     <Subtile>Primeiro, escolha sua modalidade de ingresso</Subtile>
     <TicketContainer setIsRemote = { setIsRemote } setPrice = { setPrice } setDisplay = { setDisplay } />
   </>;

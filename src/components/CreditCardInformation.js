@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+
+import React, { useState, useContext, useEffect } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import styled from 'styled-components';
@@ -8,6 +9,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import InputMask from 'react-input-mask';
+import { getTicket } from '../services/ticketApi';
 
 export default function CreditCardInformation({ ticketId }) {
   const { userData } = useContext(UserContext);
@@ -21,6 +23,15 @@ export default function CreditCardInformation({ ticketId }) {
   });
 
   const [focus, setFocus] = useState('');
+  const [ticket, setTicket] = useState('');
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const response = await getTicket(userData.token);
+      setTicket(response);
+    };
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,7 +101,7 @@ export default function CreditCardInformation({ ticketId }) {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>Modalidade</h3>
+            <h3>Modalidade {ticket.id}</h3>
             <h4>Preço</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
@@ -192,7 +203,6 @@ const InputPayment = styled.div`
     border-color: #e5e5e5;
     cursor: pointer;
   }
-
   input:nth-child(1) {
     width: 335px;
     margin-bottom: 25px;
@@ -267,12 +277,10 @@ const Subtitle = styled.h2`
   height: 23px;
   left: 341px;
   margin-top: 37px;
-
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
-
   color: #8e8e8e;
 `;
 const ContainerChooseTicket = styled.section`
