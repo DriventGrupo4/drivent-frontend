@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import useEnrollment from '../../hooks/api/useEnrollment';
 import useToken from '../../hooks/useToken';
