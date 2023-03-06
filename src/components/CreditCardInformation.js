@@ -298,7 +298,6 @@ const ContainerChooseTicket = styled.section`
   border-radius: 9px;
   margin: 10px 0 30px 0;
   h3 {
-    width: 75px;
     height: 19px;
     left: 376px;
     top: 376px;
