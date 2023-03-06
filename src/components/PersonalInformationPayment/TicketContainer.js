@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function TicketContainer({ setIsRemote, setPrice, setDisplay }) {
+export default function TicketContainer({ setAccommodation, setIsRemote, setPrice, setDisplay }) {
   const [clickedPresencial, setClickedP] = useState(false);
   const [clickedRemote, setClickedR] = useState(false);
 
   function Ispresincial() {
     setPrice(250);
     setIsRemote(false);
+    setAccommodation(undefined);
     setDisplay('');
     if (clickedRemote === true) {
       setClickedR(false);

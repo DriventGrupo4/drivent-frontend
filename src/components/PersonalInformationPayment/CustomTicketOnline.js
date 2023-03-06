@@ -6,25 +6,34 @@ import useToken from '../../hooks/useToken';
 import { saveTicket } from '../../services/ticketApi';
 import { toast } from 'react-toastify';
 
-export default function TicketOnline({ display, price }) {
-  const [displayFinish, setDisplayFinish] = useState('none');
+export default function TicketOnline({ display, price, displayFinish, setDisplayFinish, accommodation }) {
   const { enrollment } = useEnrollment();
   const token = useToken();
   useEffect(() => {
-    if(display === 'none') {
+    if (display === 'none' || accommodation !== undefined) {
       setDisplayFinish('');
-    }else{
+    } else {
       setDisplayFinish('none');
     }
   });
-  if(price === 0) {
+  if (price === 0) {
     return <>
     </>;
   }
   async function createOnlineTicket() {
-    const body ={
+    let ticketTypeNumber;
+    if (price === 100) {
+      ticketTypeNumber = 3;
+    }
+    else if (price === 250) {
+      ticketTypeNumber = 2;
+    }
+    else if (price === 600) {
+      ticketTypeNumber = 1;
+    };
+    const body = {
       enrollmentId: enrollment.id,
-      ticketTypeId: 3,
+      ticketTypeId: ticketTypeNumber,
       status: 'RESERVED'
     };
     try {
@@ -37,7 +46,7 @@ export default function TicketOnline({ display, price }) {
     }
   }
   return (
-    <FinishContainer displayFinish = { displayFinish }>
+    <FinishContainer displayFinish={displayFinish}>
       <StyledText>Fechado! O total ficou em R$ {price}. Agora é só confirmar:</StyledText>
       <StyledButton onClick={createOnlineTicket}>
         <h1>RESERVAR INGRESSO</h1>
