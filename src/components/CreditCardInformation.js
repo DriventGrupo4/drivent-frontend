@@ -55,6 +55,7 @@ export default function CreditCardInformation() {
         Authorization: `Bearer ${userData.token}`,
       },
     };
+    console.log(ticketId, 'ticket');
     const request = axios.post(
       URL,
       {
@@ -85,7 +86,13 @@ export default function CreditCardInformation() {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
+            <h3>
+              {ticket.ticketTypeId === 1
+                ? 'Presencial + Com Hotel'
+                : ticket.ticketTypeId === 2
+                  ? 'Presencial + Sem Hotel'
+                  : 'Online'}
+            </h3>
             <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
@@ -104,7 +111,13 @@ export default function CreditCardInformation() {
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
           <ContainerChooseTicket>
-            <h3>{ticket.ticketTypeId === 1 ? 'Presencial + Com Hotel' : ticket.ticketTypeId === 2 ? 'Presencial + Sem Hotel' : 'Online'}</h3>
+            <h3>
+              {ticket.ticketTypeId === 1
+                ? 'Presencial + Com Hotel'
+                : ticket.ticketTypeId === 2
+                  ? 'Presencial + Sem Hotel'
+                  : 'Online'}
+            </h3>
             <h4>R${price}</h4>
           </ContainerChooseTicket>
           <Paragraph>Pagamento</Paragraph>
@@ -213,7 +226,7 @@ const InputPayment = styled.div`
   }
   input:nth-child(2) {
     width: 335px;
-    margin-bottom:18px;
+    margin-bottom: 18px;
   }
   button {
     position: relative;
@@ -235,13 +248,13 @@ const ValidData = styled.div`
   width: 356px;
   height: 46px;
   display: flex;
-  margin-top:-12px;
+  margin-top: -12px;
   input {
     height: 46px;
   }
   input:nth-child(1) {
     width: 248px;
-    margin-right:12px;
+    margin-right: 12px;
   }
   input:nth-child(2) {
     width: 74px;
@@ -293,10 +306,10 @@ const ContainerChooseTicket = styled.section`
   background-color: #ffeed2;
   width: 290px;
   height: 90px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   border-radius: 9px;
   margin: 10px 0 30px 0;
   h3 {
