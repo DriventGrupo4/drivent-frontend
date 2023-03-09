@@ -37,7 +37,7 @@ export default function Hotel() {
       ) : (
         <>
           <Warning>
-            {payment?.ticketTypeId === 2 ? (
+            {payment?.ticketTypeId !== 1 ? (
               <h5>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</h5>
             ) : (
               <h5>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</h5>
