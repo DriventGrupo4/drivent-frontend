@@ -6,6 +6,7 @@ import CreditCardInformation from '../../../components/CreditCardInformation';
 import { getTicket, getTicketStatus } from '../../../services/ticketApi';
 import UserContext from '../../../contexts/UserContext';
 import { useContext } from 'react';
+import styled from 'styled-components';
 
 export default function Payment({ ticketId }) {
   const { userData } = useContext(UserContext);
@@ -19,13 +20,12 @@ export default function Payment({ ticketId }) {
   useEffect(() => {
     const fetchData = async() => {
       const response = await getTicket(userData.token);
-      console.log(response);
       setFinalTicket(response);
     };
     fetchData();
   }, []);
   if (finalTicket?.status === 'PAID') {
-    return <h1>Já está Pago</h1>;
+    return (<Warning><h5>Pagamento confirmado, prossiga para a escolha da hopedagem</h5></Warning>);
   }
   return (
     <>
@@ -59,3 +59,17 @@ export default function Payment({ ticketId }) {
     </>
   );
 }
+const Warning = styled.div`
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h5 {
+    text-align: center;
+    width: 30rem;
+    height: 2.5rem;
+    font-size: 20px;
+    color: #8e8e8e;
+  }
+`;
