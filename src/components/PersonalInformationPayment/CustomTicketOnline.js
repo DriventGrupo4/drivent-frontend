@@ -28,11 +28,11 @@ export default function TicketOnline({
   async function createOnlineTicket() {
     let ticketTypeNumber;
     if (price === 100) {
-      ticketTypeNumber = 1;
+      ticketTypeNumber = 3;
     } else if (price === 250) {
       ticketTypeNumber = 2;
     } else if (price === 600) {
-      ticketTypeNumber = 3;
+      ticketTypeNumber = 1;
     }
     const body = {
       enrollmentId: enrollment.id,

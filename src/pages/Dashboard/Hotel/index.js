@@ -12,13 +12,20 @@ export default function Hotel() {
   useEffect(() => {
     const fetchData = async() => {
       const response = await getTicket(userData.token);
-      console.log(response);
       setPayment(response);
     };
     fetchData();
   }, []);
   if (!payment) {
-    return <h1>Carregando...</h1>;
+    return (
+      <>
+        <Title>Escolha de hotel e quarto</Title>
+        <Warning>
+          <h5>Você precisa ter confirmado a inscrição e pagamento antes de fazer a escolha de hospedagem</h5>
+        </Warning>
+        ;
+      </>
+    );
   }
   return (
     <>
@@ -31,8 +38,7 @@ export default function Hotel() {
         <>
           <Warning>
             {payment?.ticketTypeId === 2 ? (
-              <h5>Sua modalidade de ingresso não inclui hospedagem
-              Prossiga para a escolha de atividades</h5>
+              <h5>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</h5>
             ) : (
               <h5>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</h5>
             )}
