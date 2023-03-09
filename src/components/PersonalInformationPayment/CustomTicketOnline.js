@@ -5,7 +5,14 @@ import useToken from '../../hooks/useToken';
 import { saveTicket } from '../../services/ticketApi';
 import { toast } from 'react-toastify';
 
-export default function TicketOnline({ setFinalTicket, display, price, displayFinish, setDisplayFinish, accommodation }) {
+export default function TicketOnline({
+  setFinalTicket,
+  display,
+  price,
+  displayFinish,
+  setDisplayFinish,
+  accommodation,
+}) {
   const { enrollment } = useEnrollment();
   const token = useToken();
   useEffect(() => {
@@ -16,24 +23,21 @@ export default function TicketOnline({ setFinalTicket, display, price, displayFi
     }
   });
   if (price === 0) {
-    return <>
-    </>;
+    return <></>;
   }
   async function createOnlineTicket() {
     let ticketTypeNumber;
     if (price === 100) {
+      ticketTypeNumber = 1;
+    } else if (price === 250) {
+      ticketTypeNumber = 2;
+    } else if (price === 600) {
       ticketTypeNumber = 3;
     }
-    else if (price === 250) {
-      ticketTypeNumber = 2;
-    }
-    else if (price === 600) {
-      ticketTypeNumber = 1;
-    };
     const body = {
       enrollmentId: enrollment.id,
       ticketTypeId: ticketTypeNumber,
-      status: 'RESERVED'
+      status: 'RESERVED',
     };
     try {
       await saveTicket(body, token);
@@ -53,7 +57,7 @@ export default function TicketOnline({ setFinalTicket, display, price, displayFi
       </StyledButton>
     </FinishContainer>
   );
-};
+}
 
 const FinishContainer = styled.div`
   display: ${(prop) => prop.displayFinish};
@@ -61,22 +65,22 @@ const FinishContainer = styled.div`
 
 const StyledText = styled.h1`
   margin-top: 50px !important;
-  color: #8E8E8E;
+  color: #8e8e8e;
   font-size: 20px;
 `;
 
 const StyledButton = styled.button`
- width: 162px;
- height: 37px;
- margin-top: 10px;
- background: #E0E0E0;
- box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
- border-radius: 10px;
- border:none;
+  width: 162px;
+  height: 37px;
+  margin-top: 10px;
+  background: #e0e0e0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
 
- h1 {
-  font-size: 12px;
-  text-align: center;
-  color: #000000;
- }
+  h1 {
+    font-size: 12px;
+    text-align: center;
+    color: #000000;
+  }
 `;
