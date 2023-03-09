@@ -34,7 +34,7 @@ export default function CreditCardInformation() {
     };
     fetchData();
   }, []);
-
+  console.log(ticket.ticketTypeId, 'ttt');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'number') {
@@ -55,7 +55,6 @@ export default function CreditCardInformation() {
         Authorization: `Bearer ${userData.token}`,
       },
     };
-    console.log(ticketId, 'ticket');
     const request = axios.post(
       URL,
       {
@@ -78,7 +77,7 @@ export default function CreditCardInformation() {
       console.log(err);
     });
   }
-
+  console.log(ticket.ticketTypeId, 'id');
   return (
     <>
       {success ? (
