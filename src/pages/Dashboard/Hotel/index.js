@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getTicket } from '../../../services/ticketApi';
 import UserContext from '../../../contexts/UserContext';
 import { useContext } from 'react';
+import PersonalHotelInformation from '../../../components/HotelInformation/PersonalHotelInformation';
 
 export default function Hotel() {
   const { userData } = useContext(UserContext);
@@ -16,16 +17,14 @@ export default function Hotel() {
     };
     fetchData();
   }, []);
-  
-  console.log(payment);
- 
+
   return (
     <>
-      {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
-        <>
-          <Title>Escolha de hotel e quarto</Title>
-          <HotelPayment />
-        </>
+      {/* {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
+        <> */}
+      <Title>Escolha de hotel e quarto</Title>
+      {/* <HotelPayment /> */}
+      {/* </>
       ) : (
         <>
           <Warning>
@@ -38,7 +37,8 @@ export default function Hotel() {
             )}
           </Warning>
         </>
-      )}
+      )} */}
+      <PersonalHotelInformation />
     </>
   );
 }
