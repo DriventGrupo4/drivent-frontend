@@ -23,7 +23,7 @@ export default function Hotel() {
       {/* {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
         <> */}
       <Title>Escolha de hotel e quarto</Title>
-      {/* <HotelPayment /> */}
+      <HotelPayment/>
       {/* </>
       ) : (
         <>
@@ -38,7 +38,7 @@ export default function Hotel() {
           </Warning>
         </>
       )} */}
-      <PersonalHotelInformation />
+      {/* <PersonalHotelInformation/> */}
     </>
   );
 }
