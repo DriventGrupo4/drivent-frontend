@@ -7,7 +7,6 @@ import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
 export default function Hotel({ h }) {
-  const [hotelId, setHotelId] = useState('');
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -15,7 +14,6 @@ export default function Hotel({ h }) {
   useEffect(() => {
     const fetchData = async() => {
       const response = await getHotelsById(userData.token, h.id);
-      setHotelId(response);
       setRooms(response.Rooms);
       setVacancies(response.Rooms.length);
     };
