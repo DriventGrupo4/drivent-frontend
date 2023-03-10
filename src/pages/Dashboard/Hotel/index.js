@@ -16,17 +16,9 @@ export default function Hotel() {
     };
     fetchData();
   }, []);
-  if (!payment) {
-    return (
-      <>
-        <Title>Escolha de hotel e quarto</Title>
-        <Warning>
-          <h5>Você precisa ter confirmado a inscrição e pagamento antes de fazer a escolha de hospedagem</h5>
-        </Warning>
-        ;
-      </>
-    );
-  }
+  
+  console.log(payment);
+ 
   return (
     <>
       {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
@@ -37,10 +29,12 @@ export default function Hotel() {
       ) : (
         <>
           <Warning>
-            {payment?.ticketTypeId !== 1 ? (
-              <h5>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</h5>
+            {payment !== undefined && payment?.ticketTypeId !== 1 ? (
+              <h5>Sua modalidade de ingresso não inclui hospedagem
+              Prossiga para a escolha de atividades</h5>
             ) : (
-              <h5>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</h5>
+              <h5>Você precisa ter confirmado pagamento antes
+              de fazer a escolha de hospedagem</h5>
             )}
           </Warning>
         </>

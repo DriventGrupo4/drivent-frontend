@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { getTicket } from '../services/ticketApi';
 
-export default function CreditCardInformation() {
+export default function CreditCardInformation({ isPaid }) {
   const { userData } = useContext(UserContext);
   const [success, setSuccess] = useState(false);
   const [cardData, setCardData] = useState({
@@ -73,14 +73,13 @@ export default function CreditCardInformation() {
       setSuccess(true);
     });
     request.catch((err) => {
-      // eslint-disable-next-line no-console
       console.log(err);
     });
   }
-  console.log(ticket.ticketTypeId, 'id');
+
   return (
     <>
-      {success ? (
+      {success || isPaid ? (
         <>
           <Title>Ingresso e pagamento</Title>
           <Subtitle>Ingresso escolhido</Subtitle>
