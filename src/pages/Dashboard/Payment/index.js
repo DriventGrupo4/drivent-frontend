@@ -7,6 +7,7 @@ import { getTicket, getTicketStatus } from '../../../services/ticketApi';
 import UserContext from '../../../contexts/UserContext';
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { BsCreditCard } from 'react-icons/bs';
 
 export default function Payment({ ticketId }) {
   const { userData } = useContext(UserContext);
@@ -25,7 +26,7 @@ export default function Payment({ ticketId }) {
     fetchData();
   }, []);
   if (finalTicket?.status === 'PAID') {
-    return (<Warning><h5>Pagamento confirmado, prossiga para a escolha da hopedagem</h5></Warning>);
+    return (<CreditCardInformation isPaid={true}/>);
   }
   return (
     <>
