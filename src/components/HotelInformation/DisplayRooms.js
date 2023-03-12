@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
-export default function DisplayRooms({ chosenHotel, chosenHotelRooms }) {
+export default function DisplayRooms({ chosenHotelRooms, chosenRoom, setChosenRoom }) {
   return (
     <RoomsContainer>
-      {chosenHotelRooms.map((r) => <DisplayRoom room = {r} key = {r.id}/>)}
+      {chosenHotelRooms.map((r) => <DisplayRoom room = {r} key = {r.id} chosenRoom={chosenRoom} setChosenRoom= {setChosenRoom}/>)}
     </RoomsContainer>
   );
 };
-function DisplayRoom({ room }) {
+function DisplayRoom({ room, chosenRoom, setChosenRoom }) {
   const capacityIcons = [];
   for (let i=1; i<=room.capacity; i++) {
     capacityIcons.push(<ion-icon name="person-outline"></ion-icon>);
   }
   return(
-    <RoomContainer>
+    <RoomContainer onClick={() => {setChosenRoom(room);} } chosenRoomId={chosenRoom.id} thisRoomId={room.id}>
       {room.name}
       <div>
         {capacityIcons}
@@ -42,4 +42,6 @@ const RoomContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #454545;
+  background-color: ${props => props.chosenRoomId === props.thisRoomId ? '#FFEED2' : 'FFFFFF'};
 `;

@@ -6,7 +6,7 @@ import UserContext from '../../contexts/UserContext';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -21,7 +21,7 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms }) {
   }, []);
 
   return (
-    <PersonalHotel onClick={() => {setChosenHotel(h); setChosenHotelRooms(rooms);}}>
+    <PersonalHotel onClick={() => {setChosenHotel(h); setChosenHotelRooms(rooms); setHotelActive(index);}} chosenHotelId={chosenHotel.id} thisHotelId={h.id}>
       <HotelImg src={h.image} alt='hotelImg' />
       <HotelInformations>
         <h2>{h.name}</h2>
@@ -44,7 +44,7 @@ const PersonalHotel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #EBEBEB;
+  background-color: ${props => props.chosenHotelId === props.thisHotelId ? '#FFEED2' : '#EBEBEB'};
   border-radius: 10px;
   margin-bottom: 52px;
 `;
