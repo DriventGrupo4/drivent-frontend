@@ -21,20 +21,30 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
     fetchData();
   }, []);
   return (
-    <PersonalHotel onClick={() => {setChosenHotel(h); setChosenHotelRooms(rooms); setHotelActive(index);}} chosenHotelId={chosenHotel.id} thisHotelId={h.id}>
-      <HotelImg src={h.image} alt='hotelImg' />
+    <PersonalHotel
+      onClick={() => {
+        setChosenHotel(h);
+        setChosenHotelRooms(rooms);
+        setHotelActive(index);
+      }}
+      chosenHotelId={chosenHotel.id}
+      thisHotelId={h.id}
+    >
+      <HotelImg src={h.image} alt="hotelImg" />
       <HotelInformations>
         <h2>{h.name}</h2>
-        <h3>Tipo de acomadação
-        </h3>
-        <div>{rooms.map((r, index) => <Rooms r = { r } length = {rooms.length} key = { r.id } i = { index }/>)}</div>
-        <h3>Vagas disponíveis:
-        </h3>
-        <div><p>{vacancies}</p></div>
+        <h3>Tipo de acomadação</h3>
+        <div>
+          <Rooms rooms={rooms} />
+        </div>
+        <h3>Vagas disponíveis:</h3>
+        <div>
+          <p>{vacancies}</p>
+        </div>
       </HotelInformations>
     </PersonalHotel>
   );
-};
+}
 
 const PersonalHotel = styled.div`
   width: 196px;
@@ -44,7 +54,7 @@ const PersonalHotel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${props => props.chosenHotelId === props.thisHotelId ? '#FFEED2' : '#EBEBEB'};
+  background-color: ${(props) => (props.chosenHotelId === props.thisHotelId ? '#FFEED2' : '#EBEBEB')};
   border-radius: 10px;
   margin-bottom: 52px;
 `;
@@ -60,7 +70,7 @@ const HotelImg = styled.img`
 const HotelInformations = styled.div`
   width: 200px;
   height: 23px;
-  h2{
+  h2 {
     margin-left: 15px;
     margin-top: 10px;
     font-weight: 400;
@@ -68,30 +78,29 @@ const HotelInformations = styled.div`
     line-height: 23px;
     color: #343434;
   }
-  h3{
+  h3 {
     font-weight: 700;
     font-size: 12px;
     line-height: 14px;
     margin-left: 15px;
     margin-top: 10px;
     display: flex;
-    color: #3C3C3C;
-    p{
+    color: #3c3c3c;
+    p {
       font-weight: 400;
       font-size: 12px;
       line-height: 14px;
-      color: #3C3C3C;
+      color: #3c3c3c;
     }
   }
-  div{
+  div {
     display: flex;
     margin-left: 15px;
   }
-  p{
+  p {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #3C3C3C;
+    color: #3c3c3c;
   }
 `;
-
