@@ -35,7 +35,6 @@ export default function CreditCardInformation({ isPaid }) {
     };
     fetchData();
   }, []);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'number') {
