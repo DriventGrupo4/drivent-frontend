@@ -8,6 +8,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { getTicket } from '../services/ticketApi';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreditCardInformation({ isPaid }) {
   const { userData } = useContext(UserContext);
