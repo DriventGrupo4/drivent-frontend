@@ -28,6 +28,7 @@ export default function HotelPayment() {
     const response = await createBooking(chosenRoom.id, userData.token);
     setBookingId(response);
   }
+  
   return (
     <Container>
       <div>Primeiro, escolha seu hotel</div>
