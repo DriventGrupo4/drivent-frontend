@@ -6,7 +6,7 @@ import UserContext from '../../contexts/UserContext';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -21,13 +21,13 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
   }, []);
 
   return (
-    <PersonalHotel onClick={() => {setChosenHotel(h); setChosenHotelRooms(rooms); setHotelActive(index);}} chosenHotelId={chosenHotel.id} thisHotelId={h.id}>
+    <PersonalHotel onClick={() => {setChosenHotel(h); setChosenHotelRooms(rooms);}} chosenHotelId={chosenHotel.id} thisHotelId={h.id}>
       <HotelImg src={h.image} alt='hotelImg' />
       <HotelInformations>
         <h2>{h.name}</h2>
         <h3>Tipo de acomadação
         </h3>
-        <div>{rooms.map((r, index) => <Rooms r = { r } key = { r.id } i = { index }/>)}</div>
+        <div>{rooms.map((r, index) => <Rooms r={r} key={r.id} i={index}/>)}</div>
         <h3>Vagas disponíveis:
         </h3>
         <div><p>{vacancies}</p></div>

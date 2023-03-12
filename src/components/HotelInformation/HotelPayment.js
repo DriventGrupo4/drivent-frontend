@@ -32,7 +32,7 @@ export default function HotelPayment() {
     <Container>
       <div>Primeiro, escolha seu hotel</div>
       <Hotels>
-        {hotels.map((h, index) => <Hotel h = {h} key = {h.id} chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
+        {hotels.map((h) => <Hotel h={h} key={h.id} chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
       </Hotels>
       {chosenHotel==='' ? '' : <>
         <div>Ótima pedida! Agora escolha seu quarto:</div>
