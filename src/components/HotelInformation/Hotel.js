@@ -19,7 +19,6 @@ export default function Hotel({ h }) {
     };
     fetchData();
   }, []);
-
   return (
     <PersonalHotel>
       <HotelImg src={h.image} alt='hotelImg' />
