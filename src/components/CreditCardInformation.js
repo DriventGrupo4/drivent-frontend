@@ -34,7 +34,6 @@ export default function CreditCardInformation({ isPaid }) {
     };
     fetchData();
   }, []);
-  console.log(ticket.ticketTypeId, 'ttt');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'number') {

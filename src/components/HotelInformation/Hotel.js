@@ -14,6 +14,7 @@ export default function Hotel({ h }) {
   useEffect(() => {
     const fetchData = async() => {
       const response = await getHotelsById(userData.token, h.id);
+      console.log(response, 'RESP');
       setRooms(response.Rooms);
       setVacancies(response.Rooms.length);
     };
@@ -26,7 +27,7 @@ export default function Hotel({ h }) {
         <h2>{h.name}</h2>
         <h3>Tipo de acomadação
         </h3>
-        <div>{rooms.map((r, index) => <Rooms r = { r } key = { r.id } i = { index }/>)}</div>
+        <div>{rooms.map((r, index) => <Rooms r = { r } length = {rooms.length} key = { r.id } i = { index }/>)}</div>
         <h3>Vagas disponíveis:
         </h3>
         <div><p>{vacancies}</p></div>
