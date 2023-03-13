@@ -20,6 +20,11 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
     };
     fetchData();
   }, []);
+  for(let i=0; i<rooms.length; i++) {
+    console.log(rooms[i].capacity);
+    setVacancies(vacancies+rooms[i].capacity);
+  }
+
   return (
     <PersonalHotel
       onClick={() => {
