@@ -1,19 +1,47 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
-import hotelImg from '../../assets/images/hotel.jpg';
+import UserContext from '../../contexts/UserContext';
+import { getBooking } from '../../services/bookingAPI';
+import { getHotelsById } from '../../services/hotelApi';
+import { Occupation } from './Occupation';
 
 export default function PersonalHotelInformation() {
+  const { userData } = useContext(UserContext);
+  const [booking, setBooking] = useState([]);
+  const [hotelId, setHotelId] = useState([]);
+  const [hotel, setHotel] = useState([]);
+  const [occupation, setOccupation] = useState([]);
+  const [hotelImg, setHotelImg] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const response = await getBooking(userData.token);
+      setBooking(response.Room.name);
+      setHotelId(response.Room.hotelId); 
+      setOccupation(response.Room.capacity);  
+      const response2 = await getHotelsById(userData.token, hotelId);
+      setHotel(response2.name);
+      setHotelImg(response2.image);
+    };
+    fetchData();
+  }, [hotel, booking, hotelImg]);
+
+  console.log(hotelImg);
+
   return (
     <>
       <Title>Você já escolheu seu quarto:</Title>
       <PersonalHotel>
         <HotelImg src={hotelImg} alt='hotelImg' />
         <HotelInformations>
-          <h2>Resort Driven</h2>
+          <h2>{hotel}</h2>
           <h3>Quarto Reservado
-            <p>101 Double</p>
+            <p>101 ({booking})</p>
           </h3>
           <h3>Pessoas no seu Quarto
-            <p>Você e mais 1</p>
+            <Occupation occupation = { occupation }/>
           </h3>
         </HotelInformations>
       </PersonalHotel>
@@ -44,7 +72,7 @@ left: 369px;
 border-radius: 5px;
 `;
 
-const HotelInformations = styled.h2`
+const HotelInformations = styled.div`
     width: 200px;
 height: 23px;
 h2{

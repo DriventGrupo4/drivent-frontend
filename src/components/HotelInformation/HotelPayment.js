@@ -9,13 +9,12 @@ import { useState } from 'react';
 import DisplayRooms from './DisplayRooms';
 import { createBooking } from '../../services/bookingAPI';
 
-export default function HotelPayment() {
+export default function HotelPayment( { setBookingId, setHotelId }) {
   const { userData } = useContext(UserContext);
   const [hotels, setHotels] = useState([]);
   const [chosenHotel, setChosenHotel] = useState('');
   const [chosenHotelRooms, setChosenHotelRooms] = useState([]);
   const [chosenRoom, setChosenRoom] = useState('');
-  const [bookingId, setBookingId] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
