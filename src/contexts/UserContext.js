@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -14,3 +14,4 @@ export function UserProvider({ children }) {
     </UserContext.Provider>
   );
 }
+
