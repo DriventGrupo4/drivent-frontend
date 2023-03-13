@@ -14,7 +14,7 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
   useEffect(() => {
     const fetchData = async() => {
       const response = await getHotelsById(userData.token, h.id);
-      console.log(response, 'RESP');
+      console.log(response.Rooms.capacity, 'RESP');
       setRooms(response.Rooms);
       setVacancies(response.Rooms.length);
     };
