@@ -16,7 +16,7 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
       const response = await getHotelsById(userData.token, h.id);
       console.log(response, 'RESP');
       setRooms(response.Rooms);
-      setVacancies(response.Rooms.length);
+      setVacancies(response.Rooms.capacity);
     };
     fetchData();
   }, []);
