@@ -26,7 +26,7 @@ function DisplayRoom({ room, chosenRoom, setChosenRoom }) {
       capacityIcons.push(<ion-icon name="person" key={1+ i}></ion-icon>);
     }
   } else{
-    for(let i=1; i<room.capacity-peopleInRoom-1; i++) {
+    for(let i=1; i<=room.capacity-peopleInRoom-1; i++) {
       capacityIcons.push(<ion-icon name="person-outline" key={i}></ion-icon>);
     }
     chosenRoom.id===room.id? capacityIcons.push(<ion-icon name="person" key={room.capacity-peopleInRoom} class="chosen-room"></ion-icon>):

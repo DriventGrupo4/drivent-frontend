@@ -21,11 +21,11 @@ export default function Hotel() {
 
   return (
     <>
-      {/* {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
-        <> */}
-      <Title>Escolha de hotel e quarto</Title>
-      {/* <HotelPayment setBookingId = { setBookingId } setHotelId = { setHotelId }/> */}
-      {/* </>
+      {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
+        <>
+          <Title>Escolha de hotel e quarto</Title>
+          <HotelPayment setBookingId={setBookingId} />
+        </>
       ) : (
         <>
           <Warning>
@@ -38,32 +38,33 @@ export default function Hotel() {
             )}
           </Warning>
         </>
-      )} */}
-      <PersonalHotelInformation/>
+      )}
+      {bookingId? <PersonalHotelInformation /> : ''}
+      
     </>
   );
 }
 const Title = styled.h1`
-  width: 600px;
-  height: 40px;
-  left: 321px;
-  top: 206px;
-  font-weight: 400;
-  font-size: 34px;
-  line-height: 40px;
-  color: #000000;
-`;
+      width: 600px;
+      height: 40px;
+      left: 321px;
+      top: 206px;
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 40px;
+      color: #000000;
+      `;
 const Warning = styled.div`
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h5 {
-    text-align: center;
-    width: 30rem;
-    height: 2.5rem;
-    font-size: 20px;
-    color: #8e8e8e;
+      width: 100%;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h5 {
+        text-align: center;
+      width: 30rem;
+      height: 2.5rem;
+      font-size: 20px;
+      color: #8e8e8e;
   }
-`;
+      `;
