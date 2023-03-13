@@ -9,6 +9,7 @@ import PersonalHotelInformation from '../../../components/HotelInformation/Perso
 export default function Hotel() {
   const { userData } = useContext(UserContext);
   const [payment, setPayment] = useState();
+  const [bookingId, setBookingId] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
@@ -23,7 +24,7 @@ export default function Hotel() {
       {/* {payment?.status === 'PAID' && payment?.ticketTypeId === 1 ? (
         <> */}
       <Title>Escolha de hotel e quarto</Title>
-      <HotelPayment/>
+      {/* <HotelPayment setBookingId = { setBookingId } setHotelId = { setHotelId }/> */}
       {/* </>
       ) : (
         <>
@@ -38,7 +39,7 @@ export default function Hotel() {
           </Warning>
         </>
       )} */}
-      {/* <PersonalHotelInformation/> */}
+      <PersonalHotelInformation/>
     </>
   );
 }
