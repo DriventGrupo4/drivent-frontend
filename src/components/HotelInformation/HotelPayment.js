@@ -9,13 +9,12 @@ import { useState } from 'react';
 import DisplayRooms from './DisplayRooms';
 import { createBooking } from '../../services/bookingAPI';
 
-export default function HotelPayment() {
+export default function HotelPayment( { setBookingId, setHotelId }) {
   const { userData } = useContext(UserContext);
   const [hotels, setHotels] = useState([]);
   const [chosenHotel, setChosenHotel] = useState('');
   const [chosenHotelRooms, setChosenHotelRooms] = useState([]);
   const [chosenRoom, setChosenRoom] = useState('');
-  const [bookingId, setBookingId] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
@@ -32,7 +31,7 @@ export default function HotelPayment() {
     <Container>
       <div>Primeiro, escolha seu hotel</div>
       <Hotels>
-        {hotels.map((h, index) => <Hotel h = {h} key = {h.id} chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
+        {hotels.map((h, index) => <Hotel h = {h} key = {h.id} setHotelId = { setHotelId } chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
       </Hotels>
       {chosenHotel==='' ? '' : <>
         <div>Ótima pedida! Agora escolha seu quarto:</div>
