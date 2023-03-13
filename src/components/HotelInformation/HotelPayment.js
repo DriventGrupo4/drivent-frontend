@@ -37,6 +37,7 @@ export default function HotelPayment( { setBookingId, setDisplay, display, setDi
       if (!err.response || err.response.status !== 404) {
         throw err; 
       }
+     
       const response = await createBooking(chosenRoom.id, userData.token);
       setBookingId(response);
       setDisplay('none');
