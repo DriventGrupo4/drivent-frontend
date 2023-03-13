@@ -3,29 +3,34 @@ import { useContext } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
+import { getBookingsByRoom } from '../../services/bookingAPI';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
 
   useEffect(() => {
     const fetchData = async() => {
-      const response = await getHotelsById(userData.token, h.id);
-      console.log(response, 'RESP');
-      setRooms(response.Rooms);
-      setVacancies(response.Rooms.capacity);
+      const hotel = await getHotelsById(userData.token, h.id);
+      setRooms(hotel.Rooms);
+      let bookingsInThisHotel = 0;
+      for(let i=0; i<hotel.Rooms.length; i++) {
+        const bookingsInThisRoom = await getBookingsByRoom( hotel.Rooms[i].id, userData.token);
+        bookingsInThisHotel += bookingsInThisRoom.length;
+      }
+      setVacancies(hotel.Rooms.reduce((accumulator, currentRoom) => accumulator + currentRoom.capacity, -bookingsInThisHotel));
     };
     fetchData();
   }, []);
+
   return (
     <PersonalHotel
       onClick={() => {
         setChosenHotel(h);
         setChosenHotelRooms(rooms);
-        setHotelActive(index);
       }}
       chosenHotelId={chosenHotel.id}
       thisHotelId={h.id}

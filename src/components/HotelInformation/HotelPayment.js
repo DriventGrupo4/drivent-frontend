@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 import { getHotels } from '../../services/hotelApi';
 import { useState } from 'react';
 import DisplayRooms from './DisplayRooms';
-import { createBooking } from '../../services/bookingAPI';
+import { createBooking, findBooking } from '../../services/bookingAPI';
+import { updateBooking } from '../../services/bookingAPI';
 
 export default function HotelPayment( { setBookingId }) {
   const { userData } = useContext(UserContext);
@@ -23,15 +24,27 @@ export default function HotelPayment( { setBookingId }) {
     };
     fetchData();
   }, []);
+  
   async function bookRoom() {
-    const response = await createBooking(chosenRoom.id, userData.token);
-    setBookingId(response);
+    try {
+      const booking = await findBooking(userData.token);
+      const newBooking = await updateBooking(booking.id, chosenRoom.id, userData.token,);
+      setBookingId(newBooking);
+    } catch(err) {
+      if (!err.response || err.response.status !== 404) {
+        throw err;
+      }
+
+      const response = await createBooking(chosenRoom.id, userData.token);
+      setBookingId(response);
+    }
   }
+  
   return (
     <Container>
       <div>Primeiro, escolha seu hotel</div>
       <Hotels>
-        {hotels.map((h, index) => <Hotel h = {h} key = {h.id} chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
+        {hotels.map((h) => <Hotel h={h} key={h.id} chosenHotel={chosenHotel} setChosenHotel={setChosenHotel} setChosenHotelRooms={setChosenHotelRooms}/>)}
       </Hotels>
       {chosenHotel==='' ? '' : <>
         <div>Ótima pedida! Agora escolha seu quarto:</div>
