@@ -6,7 +6,7 @@ import UserContext from '../../contexts/UserContext';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -25,7 +25,6 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
       onClick={() => {
         setChosenHotel(h);
         setChosenHotelRooms(rooms);
-        setHotelActive(index);
       }}
       chosenHotelId={chosenHotel.id}
       thisHotelId={h.id}
