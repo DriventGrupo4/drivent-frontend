@@ -6,7 +6,7 @@ import UserContext from '../../contexts/UserContext';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -14,7 +14,6 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
   useEffect(() => {
     const fetchData = async() => {
       const response = await getHotelsById(userData.token, h.id);
-      console.log(response.Rooms.capacity, 'RESP');
       setRooms(response.Rooms);
       setVacancies(response.Rooms.length);
     };
