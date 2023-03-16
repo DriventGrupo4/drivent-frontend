@@ -7,7 +7,7 @@ import { getBooking } from '../../services/bookingAPI';
 import { getHotelsById } from '../../services/hotelApi';
 import { Occupation } from './Occupation';
 
-export default function PersonalHotelInformation() {
+export default function PersonalHotelInformation({ setDisplay, setDisplay2, display2 }) {
   const { userData } = useContext(UserContext);
   const [booking, setBooking] = useState([]);
   const [hotelId, setHotelId] = useState([]);
@@ -27,30 +27,37 @@ export default function PersonalHotelInformation() {
     };
     fetchData();
   }, [hotel, booking, hotelImg]);
-
-  console.log(hotelImg);
-
+ 
+  function changeRoom() {
+    setDisplay2('none');
+    setDisplay('');
+  };
+  
   return (
-    <>
+    <Container display2={display2}>
       <Title>Você já escolheu seu quarto:</Title>
       <PersonalHotel>
         <HotelImg src={hotelImg} alt='hotelImg' />
         <HotelInformations>
           <h2>{hotel}</h2>
           <h3>Quarto Reservado
-            <p>101 ({booking})</p>
+            <p>({booking})</p>
           </h3>
           <h3>Pessoas no seu Quarto
             <Occupation occupation = { occupation }/>
           </h3>
         </HotelInformations>
       </PersonalHotel>
-      <ChangeRoom>
+      <ChangeRoom onClick={changeRoom}>
         <h5>TROCAR DE QUARTO</h5>
       </ChangeRoom>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+display: ${(prop) => prop.display2}
+`;
 
 const PersonalHotel = styled.div`
     width: 196px;
