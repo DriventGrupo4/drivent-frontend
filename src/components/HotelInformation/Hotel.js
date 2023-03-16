@@ -7,7 +7,7 @@ import { getBookingsByRoom } from '../../services/bookingAPI';
 import { getHotelsById } from '../../services/hotelApi';
 import Rooms from './Rooms';
 
-export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel }) {
+export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHotel, setHotelActive, index }) {
   const { userData } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
   const [vacancies, setVacancies] = useState(0);
@@ -17,11 +17,13 @@ export default function Hotel({ h, setChosenHotel, setChosenHotelRooms, chosenHo
       const hotel = await getHotelsById(userData.token, h.id);
       setRooms(hotel.Rooms);
       let bookingsInThisHotel = 0;
-      for(let i=0; i<hotel.Rooms.length; i++) {
-        const bookingsInThisRoom = await getBookingsByRoom( hotel.Rooms[i].id, userData.token);
+      for (let i = 0; i < hotel.Rooms.length; i++) {
+        const bookingsInThisRoom = await getBookingsByRoom(hotel.Rooms[i].id, userData.token);
         bookingsInThisHotel += bookingsInThisRoom.length;
       }
-      setVacancies(hotel.Rooms.reduce((accumulator, currentRoom) => accumulator + currentRoom.capacity, -bookingsInThisHotel));
+      setVacancies(
+        hotel.Rooms.reduce((accumulator, currentRoom) => accumulator + currentRoom.capacity, -bookingsInThisHotel)
+      );
     };
     fetchData();
   }, []);
