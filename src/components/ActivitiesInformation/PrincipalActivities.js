@@ -1,12 +1,17 @@
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 export function PrincipalActivities({ a }) {
-  console.log(a.startDateTime);
+  const startTime = dayjs(a.startDateTime).format('hh:mm');
+  const endTime = dayjs(a.endDateTime).format('hh:mm');
   return (
     <>
       {a.locationId === 1 ? (
         <><Container>
-          <Name><h2>{a.name}</h2></Name>
+          <Informations>
+            <Name><h2>{a.name}</h2></Name>
+            <Hour><h2>{startTime} - {endTime}</h2></Hour>
+          </Informations>
           <Line></Line>
           <Availability>
             <h2><ion-icon name="enter-outline"></ion-icon></h2>
@@ -17,7 +22,7 @@ export function PrincipalActivities({ a }) {
     </>
   );
 };
-
+  
 const Container = styled.div `
 width: 265px;
 height: 79px;
@@ -27,7 +32,10 @@ margin-bottom: -10px;
 background: #F1F1F1;
 border-radius: 5px;
 display: flex;
-border: none;
+z-index: 1;
+`;
+
+const Informations = styled.div`
 `;
 
 const Line = styled.div`
@@ -68,5 +76,15 @@ const Name = styled.div`
 font-weight: 700;
 font-size: 12px;
  }
+`;
+
+const Hour = styled.div`
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+padding-top: 5px;
+padding-left: 10px;
+line-height: 14px;
+color: #343434;
 `;
 
