@@ -4,10 +4,13 @@ import styled from 'styled-components';
 export function PrincipalActivities({ a }) {
   const startTime = dayjs(a.startDateTime).format('hh:mm');
   const endTime = dayjs(a.endDateTime).format('hh:mm');
+  const start = dayjs(`2023-03-17T${startTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
+  const end = dayjs(`2023-03-17T${endTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
+  const diffInHours = end.diff(start, 'hour');
   return (
     <>
       {a.locationId === 1 ? (
-        <><Container>
+        <><Container diffInHours={diffInHours}>
           <Informations>
             <Name><h2>{a.name}</h2></Name>
             <Hour><h2>{startTime} - {endTime}</h2></Hour>
@@ -18,14 +21,14 @@ export function PrincipalActivities({ a }) {
             <h3>{a.capacity} vagas</h3>
           </Availability>
         </Container></>
-      ) : '' }
+      ) : ''}
     </>
   );
 };
-  
-const Container = styled.div `
+
+const Container = styled.div`
 width: 265px;
-height: 79px;
+height: ${props => 80 * props.diffInHours}px;
 left: 350px;
 margin-top: 24px;
 margin-bottom: -10px;
@@ -41,11 +44,14 @@ const Informations = styled.div`
 const Line = styled.div`
 margin-top: 10px;
 margin-left: 15px;
-height: 60px;
+height: ${props => 60 * props.diffInHours}px;
 border-left: 1px solid #CFCFCF
 `;
 
-const Availability = styled.div `
+const Availability = styled.div`
+display: flex;
+justify-content: center;
+flex-direction: column;
 h2 {
   margin-top: 15px;
   margin-left: 20px;

@@ -37,7 +37,6 @@ export default function ChooseActivitie() {
 };
 
 const AuditorioPrincipal = styled.div`
-
 z-index: 10;
 `;
 
@@ -45,9 +44,12 @@ const AuditorioSeparation = styled.div`
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 40px;
   width: 300px;
   height: 450px;  
   border: 1px solid #CFCFCF;
+  overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const AuditorioLateral = styled.div`
