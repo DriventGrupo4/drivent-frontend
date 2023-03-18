@@ -16,10 +16,16 @@ export function WorkShopeRoom({ a }) {
             <Hour><h2>{startTime} - {endTime}</h2></Hour>
           </Informations>
           <Line></Line>
-          <Availability>
-            <h2><ion-icon name="enter-outline"></ion-icon></h2>
-            <h3>{a.capacity} vagas</h3>
-          </Availability>
+          {a.capacity > 0 ? (
+            <Availability>
+              <h2><ion-icon name="enter-outline"></ion-icon></h2>
+              <h3>{a.capacity} vagas</h3>
+            </Availability>    
+          ): 
+            <SoldOff>
+              <h2><ion-icon name="close-circle-outline"></ion-icon></h2>
+              <h3>Esgotado</h3>
+            </SoldOff>}
         </Container></>
       ) : ''}
     </>
@@ -81,6 +87,24 @@ const Name = styled.div`
     font-style: normal;
 font-weight: 700;
 font-size: 12px;
+ }
+`;
+const SoldOff = styled.div`
+h2 {
+  margin-top: 15px;
+  margin-left: 20px;
+  font-weight: 900;
+  font-size: 25px;
+  color: #CC6666;
+}
+ h3 {
+ margin-left: 16px;
+ font-family: 'Roboto';
+ font-style: normal;
+ font-weight: 400;
+ font-size: 11px;
+ line-height: 11px;
+ color: #CC6666;
  }
 `;
 
