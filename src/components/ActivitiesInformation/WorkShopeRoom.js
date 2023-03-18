@@ -1,11 +1,20 @@
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 export function WorkShopeRoom({ a }) {
+  const startTime = dayjs(a.startDateTime).format('hh:mm');
+  const endTime = dayjs(a.endDateTime).format('hh:mm');
+  const start = dayjs(`2023-03-17T${startTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
+  const end = dayjs(`2023-03-17T${endTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
+  const diffInHours = end.diff(start, 'hour');
   return (
     <>
       {a.locationId === 3 ? (
-        <><Container>
-          <Name><h2>{a.name}</h2></Name>
+        <><Container diffInHours={diffInHours}>
+          <Informations>
+            <Name><h2>{a.name}</h2></Name>
+            <Hour><h2>{startTime} - {endTime}</h2></Hour>
+          </Informations>
           <Line></Line>
           {a.capacity > 0 ? (
             <Availability>
@@ -18,31 +27,37 @@ export function WorkShopeRoom({ a }) {
               <h3>Esgotado</h3>
             </SoldOff>}
         </Container></>
-      ) : '' }
+      ) : ''}
     </>
   );
 };
-  
-const Container = styled.div `
+
+const Container = styled.div`
 width: 265px;
-height: 79px;
+height: ${props => 80 * props.diffInHours}px;
 left: 350px;
 margin-top: 24px;
 margin-bottom: -10px;
 background: #F1F1F1;
 border-radius: 5px;
 display: flex;
-border: none;
+z-index: 100;
+`;
+
+const Informations = styled.div`
 `;
 
 const Line = styled.div`
 margin-top: 10px;
 margin-left: 15px;
-height: 60px;
+height: ${props => 60 * props.diffInHours}px;
 border-left: 1px solid #CFCFCF
 `;
 
-const Availability = styled.div `
+const Availability = styled.div`
+display: flex;
+justify-content: center;
+flex-direction: column;
 h2 {
   margin-top: 15px;
   margin-left: 20px;
@@ -91,5 +106,15 @@ h2 {
  line-height: 11px;
  color: #CC6666;
  }
+`;
+
+const Hour = styled.div`
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+padding-top: 5px;
+padding-left: 10px;
+line-height: 14px;
+color: #343434;
 `;
 
