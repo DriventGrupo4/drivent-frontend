@@ -32,34 +32,34 @@ export default function ChooseActivitie() {
         <h1>Sala de WorkShope</h1>
         <AuditorioSeparation>{activities.map((a) => <WorkShopeRoom a = {a} key = {a.id}/>)}</AuditorioSeparation>
       </WorkShope>
-      {/* <Information>
-        {activities.map((a) => <Activities a = {a} key = {a.id}/>)}
-      </Information>
-      <Line></Line>
-      <Availability>
-        <h2><ion-icon name="enter-outline"></ion-icon></h2>
-        <h3>27 vagas</h3>
-      </Availability> */}
     </Container>
   );
 };
 
 const AuditorioPrincipal = styled.div`
+z-index: 10;
 `;
 
 const AuditorioSeparation = styled.div`
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 40px;
   width: 300px;
   height: 450px;  
   border: 1px solid #CFCFCF;
+  overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const AuditorioLateral = styled.div`
+
+z-index: 10;
 `;
 
 const WorkShope = styled.div`
+
+z-index: 10;
 `;
 
 const Container = styled.div`
@@ -77,26 +77,4 @@ font-size: 17px;
 color: #7B7B7B;
   }
 `;
-
-const Information = styled.div `
-h2 {
-  margin-top: 10px;
-  margin-left: 10px;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
-  color: #343434;
-}
- h3{
-  margin-top: 5px;
-  margin-left: 10px;
- font-family: 'Roboto';
- font-style: normal;
- font-weight: 400;
- font-size: 12px;
- line-height: 14px;
- color: #343434;
- }`;
 
