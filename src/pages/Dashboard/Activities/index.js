@@ -8,6 +8,7 @@ import { useContext } from 'react';
 export default function Activities() {
   const { userData } = useContext(UserContext);
   const [payment, setPayment] = useState();
+  const [activityId, setActivityId] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
@@ -22,7 +23,7 @@ export default function Activities() {
       {payment?.status === 'PAID' && payment?.ticketTypeId !== 3 ? (
         <>
           <Title>Escolha de atividades</Title>
-          <ChooseActivitie></ChooseActivitie>
+          <ChooseActivitie setActivityId={setActivityId} />
         </>
       ) : (
         <Warning>
