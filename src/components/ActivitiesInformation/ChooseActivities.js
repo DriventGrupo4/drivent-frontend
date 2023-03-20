@@ -1,21 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import UserContext from '../../contexts/UserContext';
-import { findActivities, postActivity } from '../../services/activitiesApi';
 import { LateralActivities } from './LateralActivities';
 import { PrincipalActivities } from './PrincipalActivities';
 import { WorkShopeRoom } from './WorkShopeRoom';
 
-export default function ChooseActivitie({ setActivityId, filteredActivities }) {
-  const [subscribed, setSubscribed] = useState(0);
-
+export default function ChooseActivitie({ filteredActivities }) {
   return (
     <Container>
       <AuditorioPrincipal>
         <h1>Auditório Principal</h1>
         <AuditorioSeparation>
           {filteredActivities.map((a, i) => (
-            <PrincipalActivities a={a} key={a.id} i={i} subscribed={subscribed} setSubscribed={setSubscribed} />
+            <PrincipalActivities a={a} key={a.id} i={i} />
           ))}
         </AuditorioSeparation>
       </AuditorioPrincipal>
@@ -23,7 +18,7 @@ export default function ChooseActivitie({ setActivityId, filteredActivities }) {
         <h1>Auditório Lateral</h1>
         <AuditorioSeparation>
           {filteredActivities.map((a) => (
-            <LateralActivities a={a} key={a.id} subscribed={subscribed} setSubscribed={setSubscribed} />
+            <LateralActivities a={a} key={a.id}  />
           ))}
         </AuditorioSeparation>
       </AuditorioLateral>
@@ -31,7 +26,7 @@ export default function ChooseActivitie({ setActivityId, filteredActivities }) {
         <h1>Sala de WorkShope</h1>
         <AuditorioSeparation>
           {filteredActivities.map((a) => (
-            <WorkShopeRoom a={a} key={a.id} subscribed={subscribed} setSubscribed={setSubscribed}/>
+            <WorkShopeRoom a={a} key={a.id} />
           ))}
         </AuditorioSeparation>
       </WorkShope>
