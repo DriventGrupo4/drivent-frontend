@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { getTicket } from '../../../services/ticketApi';
 import UserContext from '../../../contexts/UserContext';
 import { useContext } from 'react';
+import ChooseDate from '../../../components/ActivitiesInformation/ChooseDate';
 
 export default function Activities() {
   const { userData } = useContext(UserContext);
   const [payment, setPayment] = useState();
   const [activityId, setActivityId] = useState('');
+  const [filteredActivities, setFilteredActivities] = useState('');
 
   useEffect(() => {
     const fetchData = async() => {
@@ -23,7 +25,8 @@ export default function Activities() {
       {payment?.status === 'PAID' && payment?.ticketTypeId !== 3 ? (
         <>
           <Title>Escolha de atividades</Title>
-          <ChooseActivitie setActivityId={setActivityId} />
+          <ChooseDate filteredActivities={filteredActivities} setFilteredActivities={setFilteredActivities}/>
+          {filteredActivities!==''? <ChooseActivitie setActivityId={setActivityId} filteredActivities={filteredActivities} /> : ''}
         </>
       ) : (
         <Warning>
