@@ -2,15 +2,31 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { postActivity } from '../../services/activitiesApi';
 import UserContext from '../../contexts/UserContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { getMatriculationsByActivity } from '../../services/matriculations';
 
-export function LateralActivities({ a, setSubscribed, subscribed }) {
+export function LateralActivities({ a }) {
+  const [subscribed, setSubscribed] = useState(0);
   const { userData } = useContext(UserContext);
   const startTime = dayjs(a.startDateTime).format('hh:mm');
   const endTime = dayjs(a.endDateTime).format('hh:mm');
   const start = dayjs(`2023-03-17T${startTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
   const end = dayjs(`2023-03-17T${endTime}:00`, 'YYYY-MM-DDTHH:mm:ss');
   const diffInHours = end.diff(start, 'hour');
+  const [vacancies, setVacancies] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const matriculations = await getMatriculationsByActivity(userData.token, a.id);
+      setVacancies(a.capacity-matriculations.length);
+      for(let i=0; i<matriculations.length; i++) {
+        if(matriculations[i].userId===userData.user.id) {
+          setSubscribed(a.id);
+        }
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       {a.locationId === 2 ? (
@@ -65,7 +81,7 @@ export function LateralActivities({ a, setSubscribed, subscribed }) {
                 <h2>
                   <ion-icon name="enter-outline"></ion-icon>
                 </h2>
-                <h3>{a.capacity} vagas</h3>
+                <h3>{vacancies} vagas</h3>
               </Availability>
             ) : (
               <SoldOff>

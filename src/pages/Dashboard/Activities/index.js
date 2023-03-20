@@ -9,7 +9,6 @@ import ChooseDate from '../../../components/ActivitiesInformation/ChooseDate';
 export default function Activities() {
   const { userData } = useContext(UserContext);
   const [payment, setPayment] = useState();
-  const [activityId, setActivityId] = useState('');
   const [filteredActivities, setFilteredActivities] = useState('');
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function Activities() {
         <>
           <Title>Escolha de atividades</Title>
           <ChooseDate filteredActivities={filteredActivities} setFilteredActivities={setFilteredActivities}/>
-          {filteredActivities!==''? <ChooseActivitie setActivityId={setActivityId} filteredActivities={filteredActivities} /> : ''}
+          {filteredActivities!==''? <ChooseActivitie  filteredActivities={filteredActivities} /> : ''}
         </>
       ) : (
         <Warning>
